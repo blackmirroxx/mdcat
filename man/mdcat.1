@@ -1,0 +1,57 @@
+.\" Man page for mdcat
+.\" Automatically generated from help output.
+.TH MDCAT 1 "2026-03-06" "mdcat" "User Commands"
+.SH NAME
+mdcat \- cat for markdown: show markdown documents in terminals
+.SH SYNOPSIS
+.B mdcat
+[\fI\,OPTIONS\/\fR] [\fI\,FILENAMES\/\fR]...
+.SH DESCRIPTION
+.B mdcat
+reads Markdown files and displays them with syntax highlighting, images,
+and terminal formatting where supported. It can read from standard input
+when \fI-\fP is given.
+.SH OPTIONS
+.TP
+\fB\-c\fR, \fB\-\-no\-colour\fR
+Disable all colours and other styles.
+.TP
+\fB\-\-columns\fR \fI\,COLUMNS\/\fR
+Maximum number of columns to use for output.
+.TP
+\fB\-l\fR, \fB\-\-local\fR
+Do not load remote resources like images.
+.TP
+\fB\-\-fail\fR
+Exit immediately if any error occurs processing an input file.
+.TP
+\fB\-\-detect\-terminal\fR
+Print detected terminal name and exit.
+.TP
+\fB\-\-ansi\fR
+Skip terminal detection and only use ANSI formatting.
+.TP
+\fB\-\-completions\fR \fI\,COMPLETIONS\/\fR
+Generate completions for a shell to standard output and exit.
+Possible values: \fBbash\fR, \fBelvish\fR, \fBfish\fR, \fBpowershell\fR, \fBzsh\fR.
+.TP
+\fB\-p\fR, \fB\-\-paginate\fR
+Paginate the output of mdcat with a pager like less (default for mdless).
+.TP
+\fB\-P\fR, \fB\-\-no\-pager\fR
+Do not paginate output (default). Overrides an earlier \-\-paginate.
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+Print help (see also \fBman mdcat\fR).
+.TP
+\fB\-V\fR, \fB\-\-version\fR
+Print version information.
+.SH SEE ALSO
+.BR mdless (1)
+.sp
+The program can be installed as or linked to \fBmdless\fR for automatic
+pagination.
+.SH REPORTING BUGS
+Report issues to <https://github.com/swsnr/mdcat>.
+.SH AUTHOR
+Originally written by Sebastian Wiesner <swiesner@lunaryorn.com> and contributors.
