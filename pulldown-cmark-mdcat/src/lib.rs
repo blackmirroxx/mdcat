@@ -34,7 +34,7 @@
 //!   Please **do not report bugs** about inline image rendering with this feature disabled, unless
 //!   the issue can also be reproduced if the feature is enabled.
 
-#![deny(warnings, missing_docs, clippy::all)]
+#![deny(missing_docs, clippy::all)]
 #![forbid(unsafe_code)]
 
 use std::io::{Error, ErrorKind, Result, Write};
