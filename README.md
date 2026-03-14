@@ -23,7 +23,7 @@ mdcat in [WezTerm], with "One Light (base16)", "Gruvbox Light", and "Darcula
 
 ## Features
 
-`mdcat` works best with [iTerm2], [WezTerm], and [kitty], and a good terminal font with italic characters.
+`mdcat` works best with [iTerm2], [WezTerm], [alacritty], and [kitty], and a good terminal font with italic characters.
 Then it
 
 * nicely renders all basic CommonMark syntax,
@@ -38,6 +38,7 @@ Then it
 | [Terminology]              | ✓             | ✓                   | ✓      |            |
 | [iTerm2]                   | ✓             | ✓                   | ✓²     | ✓          |
 | [kitty]                    | ✓             | ✓                   | ✓²     |            |
+| [alacritty]                | ✓             | ✓                   |        |            |
 | [WezTerm]                  | ✓             | ✓                   | ✓²     |            |
 | [VSCode]                   | ✓             | ✓                   | ✓²     |            |
 | [Ghostty]                  | ✓             | ✓                   | ✓²     |            |
@@ -58,6 +59,7 @@ Not supported:
 [iterm2]: https://www.iterm2.com
 [WezTerm]: https://wezfurlong.org/wezterm/
 [kitty]: https://sw.kovidgoyal.net/kitty/
+[alacritty]: https://alacritty.org/
 [resvg]: https://github.com/RazrFalcon/resvg
 [SVG support]: https://github.com/RazrFalcon/resvg#svg-support
 [VSCode]: https://code.visualstudio.com/
