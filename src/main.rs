@@ -57,54 +57,52 @@ fn main() {
     else if args.paginate() || args.ansi_only { TerminalProgram::Ansi } 
     else {TerminalProgram::detect() };
 
-    if args.detect_and_exit {
-        println!("Terminal: {terminal}");
-    } else {
-        // Enable Ansi color processing on Windows
-        #[cfg(windows)]
-        anstyle_query::windows::enable_ansi_colors();
+    if args.detect_and_exit {println!("Terminal: {terminal}"); return;} 
 
-        let terminal_size = TerminalSize::detect().unwrap_or_default();
-        let terminal_size = if let Some(max_columns) = args.columns {
-            terminal_size.with_max_columns(max_columns) } 
-        else {terminal_size };
+    // Enable Ansi color processing on Windows
+    #[cfg(windows)]
+    anstyle_query::windows::enable_ansi_colors();
 
-        let exit_code = match Output::new(args.paginate()) {
-            Ok(mut output) => {
-                let settings = Settings {
-                    terminal_capabilities: terminal.capabilities(),
-                    terminal_size,
-                    syntax_set: &SyntaxSet::load_defaults_newlines(),
-                    theme: Theme::default(),
-                };
-                event!(
-                    target: "mdcat::main",
-                    Level::TRACE,
-                    ?settings.terminal_size,
-                    ?settings.terminal_capabilities,
-                    "settings"
-                );
-                // TODO: Handle this error properly
-                let resource_handler = create_resource_handler(args.resource_access()).unwrap();
-                args.filenames
-                    .iter()
-                    .try_fold(0, |code, filename| {
-                        process_file(filename, &settings, &resource_handler, &mut output)
-                            .map(|_| code)
-                            .or_else(|error| {
-                                eprintln!("Error: {filename}: {error}");
-                                if args.fail_fast { Err(error) } 
-                                else { Ok(1) }
-                            })
-                    })
-                    .unwrap_or(1)
-            }
-            Err(error) => {
-                eprintln!("Error: {error:#}");
-                128
-            }
-        };
-        event!(target: "mdcat::main", Level::TRACE, "Exiting with final exit code {}", exit_code);
-        std::process::exit(exit_code);
-    }
+    let terminal_size = TerminalSize::detect().unwrap_or_default();
+    let terminal_size = if let Some(max_columns) = args.columns {
+        terminal_size.with_max_columns(max_columns) } 
+    else {terminal_size };
+
+    let exit_code = match Output::new(args.paginate()) {
+        Ok(mut output) => {
+           let settings = Settings {
+               terminal_capabilities: terminal.capabilities(),
+               terminal_size,
+               syntax_set: &SyntaxSet::load_defaults_newlines(),
+               theme: Theme::default(),
+           };
+           event!(
+               target: "mdcat::main",
+               Level::TRACE,
+               ?settings.terminal_size,
+               ?settings.terminal_capabilities,
+               "settings"
+           );
+           // TODO: Handle this error properly
+           let resource_handler = create_resource_handler(args.resource_access()).unwrap();
+           args.filenames
+               .iter()
+               .try_fold(0, |code, filename| {
+                    process_file(filename, &settings, &resource_handler, &mut output)
+                       .map(|_| code)
+                       .or_else(|error| {
+                           eprintln!("Error: {filename}: {error}");
+                           if args.fail_fast { Err(error) } 
+                           else { Ok(1) }
+                       })
+               })
+               .unwrap_or(1)
+        }
+        Err(error) => {
+            eprintln!("Error: {error:#}");
+            128
+        }
+    };
+    event!(target: "mdcat::main", Level::TRACE, "Exiting with final exit code {}", exit_code);
+    std::process::exit(exit_code);
 }
