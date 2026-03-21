@@ -53,14 +53,9 @@ fn main() {
         std::process::exit(0);
     }
 
-    let terminal = if args.no_colour {
-        TerminalProgram::Dumb
-    } else if args.paginate() || args.ansi_only {
-        // A pager won't support any terminal-specific features
-        TerminalProgram::Ansi
-    } else {
-        TerminalProgram::detect()
-    };
+    let terminal = if args.no_colour { TerminalProgram::Dumb } 
+    else if args.paginate() || args.ansi_only { TerminalProgram::Ansi } 
+    else {TerminalProgram::detect() };
 
     if args.detect_and_exit {
         println!("Terminal: {terminal}");
@@ -71,10 +66,8 @@ fn main() {
 
         let terminal_size = TerminalSize::detect().unwrap_or_default();
         let terminal_size = if let Some(max_columns) = args.columns {
-            terminal_size.with_max_columns(max_columns)
-        } else {
-            terminal_size
-        };
+            terminal_size.with_max_columns(max_columns) } 
+        else {terminal_size };
 
         let exit_code = match Output::new(args.paginate()) {
             Ok(mut output) => {
@@ -100,11 +93,8 @@ fn main() {
                             .map(|_| code)
                             .or_else(|error| {
                                 eprintln!("Error: {filename}: {error}");
-                                if args.fail_fast {
-                                    Err(error)
-                                } else {
-                                    Ok(1)
-                                }
+                                if args.fail_fast { Err(error) } 
+                                else { Ok(1) }
                             })
                     })
                     .unwrap_or(1)
