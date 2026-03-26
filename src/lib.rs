@@ -19,9 +19,7 @@ use std::path::PathBuf;
 
 use anyhow::{Context, Result};
 use pulldown_cmark::{Options, Parser};
-use pulldown_cmark_mdcat::resources::{
-    DispatchingResourceHandler, FileResourceHandler, ResourceUrlHandler,
-};
+use pulldown_cmark_mdcat::resources::{ DispatchingResourceHandler, FileResourceHandler, ResourceUrlHandler, };
 use pulldown_cmark_mdcat::{Environment, Settings};
 use resources::CurlResourceHandler;
 use tracing::{event, instrument, Level};
@@ -92,13 +90,8 @@ pub fn process_file(
             sink.flush()
         })
         .or_else(|error| {
-            if error.kind() == std::io::ErrorKind::BrokenPipe {
-                event!(Level::TRACE, "Ignoring broken pipe");
-                Ok(())
-            } else {
-                event!(Level::ERROR, ?error, "Failed to process file: {:#}", error);
-                Err(error)
-            }
+            if error.kind() == std::io::ErrorKind::BrokenPipe {event!(Level::TRACE, "Ignoring broken pipe"); Ok(()) } 
+            else {event!(Level::ERROR, ?error, "Failed to process file: {:#}", error); Err(error) }
         })?;
     Ok(())
 }
