@@ -22,16 +22,12 @@ pub struct CollectBuffer {
     buffer: Vec<u8>,
 }
 
+// Do not handle data and tell curl that we didn't handle it;
+// this will make curl fail with a write error
 impl Handler for CollectBuffer {
     fn write(&mut self, data: &[u8]) -> Result<usize, WriteError> {
-        if self.read_limit < (self.buffer.len() + data.len()).try_into().unwrap() {
-            // Do not handle data and tell curl that we didn't handle it;
-            // this will make curl fail with a write error
-            Ok(0)
-        } else {
-            self.buffer.extend_from_slice(data);
-            Ok(data.len())
-        }
+        if self.read_limit < (self.buffer.len() + data.len()).try_into().unwrap() {Ok(0) } 
+        else {self.buffer.extend_from_slice(data); Ok(data.len()) }
     }
 }
 
