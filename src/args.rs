@@ -1,4 +1,5 @@
 // Copyright 2018-2020 Sebastian Wiesner <sebastian@swsnr.de>
+// edited by ricardo aka olivier mutschler <ricardo@toppoint.de>
 
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -124,11 +125,8 @@ pub enum ResourceAccess {
 impl CommonArgs {
     /// Whether remote resource access is permitted.
     pub fn resource_access(&self) -> ResourceAccess {
-        if self.local_only {
-            ResourceAccess::LocalOnly
-        } else {
-            ResourceAccess::Remote
-        }
+        if self.local_only {ResourceAccess::LocalOnly } 
+        else {ResourceAccess::Remote }
     }
 }
 
