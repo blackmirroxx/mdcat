@@ -1,7 +1,7 @@
 /target/
 
 **/*.rs.bk
-
+temp.txt
 /mdcat.1
 
 # VSCode settings
