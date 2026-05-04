@@ -75,7 +75,6 @@ impl Command {
 
 impl std::ops::Deref for Command {
     type Target = CommonArgs;
-
     fn deref(&self) -> &Self::Target {
         match self {
             Command::Mdcat { args, .. } => args,
